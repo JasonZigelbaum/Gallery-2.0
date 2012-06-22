@@ -49,7 +49,7 @@
                 context.drawImage( img, 0, 0, img.width, img.height );
             };
             img.src = images[cur_index];
-
+            
             /*  Set the interval    */
             setInterval(loop, timer);
         };

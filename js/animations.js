@@ -40,7 +40,7 @@ var Animations = (function() {
         id = window.requestAnimationFrame(transition)
     }
     
-    var burn_out = function (time) {
+    var fade_out = function (time) {
         var data    = context.getImageData(0, 0, image.width, image.height),
             pix     = data.data,
             tick    =  (time - start) / 1000;
@@ -57,14 +57,14 @@ var Animations = (function() {
 
         /*  Terminate after 1 second    */
         if(tick < 1) {
-            id = window.requestAnimationFrame( burn_out )
+            id = window.requestAnimationFrame( fade_out )
         } else {
             window.cancelAnimationFrame(id)
             cb();
         }
     }
     
-    var burn_in = function (time) {
+    var fade_in = function (time) {
         var data     = context.getImageData(0, 0, image.width, image.height),
             pix      = data.data,
             tick     =  (time - start) / 1000;
@@ -84,7 +84,7 @@ var Animations = (function() {
 
         /*  Terminate after 1 second    */
         if(tick < 1) {
-            id = window.requestAnimationFrame( burn_in )
+            id = window.requestAnimationFrame( fade_in )
         } else {
             window.cancelAnimationFrame(id)
         }
@@ -140,6 +140,56 @@ var Animations = (function() {
         }
     }
     
+    var burn_out = function (time) {
+        var data    = context.getImageData(0, 0, image.width, image.height),
+            pix     = data.data,
+            tick    =  (time - start) / 1000;
+
+        /*  Animation Loop    */
+        for (var i = 0, n = pix.length; i < n; i += 4) {
+            pix[i  ] *= 1 + tick*10; // red
+            pix[i+1] *= 1 + tick*2; // green
+            pix[i+2] *= 1 + tick; // blue
+            pix[i+3] *= .95;
+        }
+        /*  Draw to context    */
+        context.putImageData(data, 0, 0);
+
+        /*  Terminate after 1 second    */
+        if(tick < 1) {
+            id = window.requestAnimationFrame( burn_out )
+        } else {
+            window.cancelAnimationFrame(id)
+            cb();
+        }
+    }
+    
+    var burn_in = function (time) {
+        var data     = context.getImageData(0, 0, image.width, image.height),
+            pix      = data.data,
+            tick     =  (time - start) / 1000;
+
+        /*  Animation Loop    */
+        for (var i = 0, n = pix.length; i < n; i += 4) {
+            pix[i  ] += (original[i] - pix[i]);
+            pix[i+1] += (original[i+1] - pix[i+1])/4;
+            pix[i+2] += (original[i+2] - pix[i+2])/8;
+            pix[i+3] += 20;
+            if (pix[i+3] >= 255)
+                pix[i+3] = 255;
+        };
+
+        /*  Draw to context    */
+        context.putImageData(data, 0, 0);
+
+        /*  Terminate after 1 second    */
+        if(tick < 1) {
+            id = window.requestAnimationFrame( burn_in )
+        } else {
+            window.cancelAnimationFrame(id)
+        }
+    }
+    
     var Helpers = (function() {
         var copy_image = function (image) {
             var copy = [];
@@ -185,6 +235,8 @@ var Animations = (function() {
         burn_out : burn_out,
         burn_in : burn_in,
         dissolve_out : dissolve_out,
-        dissolve_in : dissolve_in
+        dissolve_in : dissolve_in,
+        fade_out : fade_out,
+        fade_in : fade_in,
     }
 }())

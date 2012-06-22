@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+    <script type="text/javascript" charset="utf-8" src="./js/gallery2.0.js"></script>
+    <script type="text/javascript" charset="utf-8" src="./js/animations.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    window.onload = function() {
+            var options = {
+                height : 500,
+                width : 500,
+                id : "gallery",
+                transition_in : Animations.dissolve_in,
+                transition_out : Animations.dissolve_out,
+                images: ["./stl.jpeg", "./nyc.jpeg", "./paris.jpeg", "./opilio.png", "./jason3.png", ],
+                timer : 5000
+            }
+            var gallery = new Gallery(options);
+            gallery.init()
+        }
+    </script>
+    <style type="text/css" media="screen">
+        * {
+            font-family: "Helvetica", "Arial";
+            color: #333;
+        }
+        #wrapper {
+            width: 960px;
+            margin: 0px auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        #gallery {
+            text-align: center;
+        }
+        canvas {
+            /* transition */
+            transition:         width .5s, height .5s;
+            -moz-transition:    width .5s, height .5s; /* Firefox 4 */
+            -webkit-transition: width .5s, height .5s; /* Safari and Chrome */
+            -o-transition:      width .5s, height .5s; /* Opera */
+            /* style */
+            border: 10px solid black;
+            -webkit-box-shadow: 0px 1px 50px 1px #CCC;
+            box-shadow:         0px 10px 30px 0px #CCC;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <h1>Demo Page</h1>
+        <div id="gallery"></div>
+    </div>
+</body>
+</html>

@@ -39,13 +39,39 @@
             -webkit-transition: width .5s, height .5s; /* Safari and Chrome */
             -o-transition:      width .5s, height .5s; /* Opera */
             /* style */
-            width: 300px;
-            height: 200px;
+            width: 100%;
+            height: 100%;
             padding: 5px;
             border: 5px solid #333;
             -webkit-box-shadow: 0px 1px 50px 1px #CCC;
             box-shadow:         0px 10px 30px 0px #CCC;
         }
+        #left, #right {
+            /* transition */
+            transition:         width .5s, height .5s, opacity .5s;
+            -moz-transition:    width .5s, height .5s, opacity .5s; /* Firefox 4 */
+            -webkit-transition: width .5s, height .5s, opacity .5s; /* Safari and Chrome */
+            -o-transition:      width .5s, height .5s, opacity .5s; /* Opera */
+            /*  style    */
+            opacity: 0;
+            width: 25px;
+            height: 100%;
+            border: 1px solid black;
+            float: left;
+        }
+        #right {
+            float: right;
+        }
+        #gallery_wrapper {
+            /* transition */
+            transition:         width .5s, height .5s;
+            -moz-transition:    width .5s, height .5s; /* Firefox 4 */
+            -webkit-transition: width .5s, height .5s; /* Safari and Chrome */
+            -o-transition:      width .5s, height .5s; /* Opera */
+            /*  style    */
+            display: inline-block;
+        }
+        
     </style>
 </head>
 <body>
